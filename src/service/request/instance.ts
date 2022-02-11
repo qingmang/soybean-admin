@@ -1,6 +1,6 @@
 import axios from 'axios';
 import type { AxiosRequestConfig, AxiosInstance, AxiosError } from 'axios';
-import { REQUEST_TIMEOUT, REFRESH_TOKEN_CODE } from '@/config';
+import { REQUEST_TIMEOUT, REFRESH_TOKEN_CODE, REQUEST_TOKEN_PREFIX } from '@/config';
 import {
   getToken,
   transformRequestData,
@@ -53,7 +53,7 @@ export default class CustomAxiosInstance {
           const contentType = handleConfig.headers['Content-Type'] as string;
           handleConfig.data = await transformRequestData(handleConfig.data, contentType);
           // 设置token
-          handleConfig.headers.Authorization = getToken();
+          handleConfig.headers.Authorization = REQUEST_TOKEN_PREFIX + getToken();
         }
         return handleConfig;
       },
